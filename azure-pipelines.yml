@@ -44,13 +44,18 @@ stages:
       runOnce:
         deploy:
           steps:
-          - task: AzureRmWebAppDeployment@4
+          # - task: AzureRmWebAppDeployment@4
+          #   inputs:
+          #     ConnectionType: 'AzureRM'
+          #     azureSubscription: 'Visual Studio Enterprise – MPN(2ef750f2-dc8f-4c79-9390-9c6eee2c0a7e)'
+          #     appType: 'webAppLinux'
+          #     WebAppName: 'WebDcitTeste'
+          #     #packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+          #     packageForLinux: '/home/vsts/work/1/**/*.zip'
+          #     RuntimeStack: 'DOTNETCORE|3.1'
+          - task: AzureWebApp@1
             inputs:
-              ConnectionType: 'AzureRM'
               azureSubscription: 'Visual Studio Enterprise – MPN(2ef750f2-dc8f-4c79-9390-9c6eee2c0a7e)'
               appType: 'webAppLinux'
-              WebAppName: 'WebDcitTeste'
-              #packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
-              packageForLinux: '/home/vsts/work/1/**/*.zip'
-              RuntimeStack: 'DOTNETCORE|3.1'
-
+              appName: 'WebDcitTeste'
+              package: '$(System.DefaultWorkingDirectory)/**/*.zip'
