@@ -13,9 +13,9 @@ variables:
   buildConfiguration: 'Release'
 
 stages:
--stage: Build
+- stage: Build
   jobs:
-  -job: Build
+  - job: Build
     steps:
       - script: dotnet build --configuration $(buildConfiguration)
       displayName: 'dotnet build $(buildConfiguration)'
@@ -26,7 +26,7 @@ stages:
   - deployment: DeployWeb
     displayName: deploy Web App
     environment: 'WebTeste'
-    strategy: 
+    strategy:
       runOnce:
         deploy:
           steps:
