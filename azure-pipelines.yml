@@ -12,6 +12,14 @@ pool:
 variables:
   buildConfiguration: 'Release'
 
-steps:
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
+stages:
+-stage: Build
+  jobs:
+  -job: B uild
+    steps:
+      - script: dotnet build --configuration $(buildConfiguration)
+      displayName: 'dotnet build $(buildConfiguration)'
+- stage: Deploy
+  dependsOn: Build
+  condition: succeeded()
+  
