@@ -22,8 +22,9 @@ stages:
       - script: |
           dotnet restore
           dotnet build --configuration $(buildConfiguration)
-          dotnet publish -c Release -o '$(System.DefaultWorkingDirectory)' 
+          
         displayName: 'dotnet build $(buildConfiguration)'
+        #dotnet publish -c Release -o '$(System.DefaultWorkingDirectory)' 
       # - task: ArchiveFiles@2
       #   inputs:
       #     rootFolderOrFile: '$(Build.BinariesDirectory)'
@@ -32,11 +33,11 @@ stages:
       #     #archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
       #     archiveFile: '$(System.DefaultWorkingDirectory)/drop.zip'
       #     replaceExistingArchive: true
-      # - task: PublishBuildArtifacts@1
-      #   inputs:
-      #     PathtoPublish: '$(System.DefaultWorkingDirectory)'
-      #     ArtifactName: 'drop'
-      #     publishLocation: 'Container'
+      - task: PublishBuildArtifacts@1
+        inputs:
+          PathtoPublish: '$(System.DefaultWorkingDirectory)'
+          ArtifactName: 'drop'
+          publishLocation: 'Container'
 - stage: Deploy
   dependsOn: Build
   condition: succeeded()
