@@ -19,16 +19,19 @@ stages:
   jobs:
   - job: Build
     steps:
-      - script: dotnet build --configuration $(buildConfiguration)
+      - script: |
+          dotnet restore
+          dotnet build --configuration $(buildConfiguration)
+          dotnet publish -c Release -o '$(System.DefaultWorkingDirectory)' 
         displayName: 'dotnet build $(buildConfiguration)'
-      - task: ArchiveFiles@2
-        inputs:
-          rootFolderOrFile: '$(Build.BinariesDirectory)'
-          includeRootFolder: true
-          archiveType: 'zip'
-          #archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-          archiveFile: '$(System.DefaultWorkingDirectory)/drop.zip'
-          replaceExistingArchive: true
+      # - task: ArchiveFiles@2
+      #   inputs:
+      #     rootFolderOrFile: '$(Build.BinariesDirectory)'
+      #     includeRootFolder: true
+      #     archiveType: 'zip'
+      #     #archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+      #     archiveFile: '$(System.DefaultWorkingDirectory)/drop.zip'
+      #     replaceExistingArchive: true
       # - task: PublishBuildArtifacts@1
       #   inputs:
       #     PathtoPublish: '$(System.DefaultWorkingDirectory)'
@@ -59,4 +62,4 @@ stages:
               azureSubscription: 'Visual Studio Enterprise – MPN(2ef750f2-dc8f-4c79-9390-9c6eee2c0a7e)'
               appType: 'webAppLinux'
               appName: 'WebDcitTeste'
-              package: '$(System.DefaultWorkingDirectory)/drop.zip'
+              package: '$(System.DefaultWorkingDirectory)'
