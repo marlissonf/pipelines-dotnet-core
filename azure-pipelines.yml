@@ -22,7 +22,7 @@ stages:
       - script: |
           dotnet restore
           dotnet build --configuration $(buildConfiguration)
-          
+          dotnet publish -c Release -o '$(System.DefaultWorkingDirectory)'
         displayName: 'dotnet build $(buildConfiguration)'
         #dotnet publish -c Release -o '$(System.DefaultWorkingDirectory)' 
       # - task: ArchiveFiles@2
