@@ -24,14 +24,15 @@ stages:
           dotnet build --configuration $(buildConfiguration)
         displayName: 'dotnet build $(buildConfiguration)'
         #dotnet publish -c Release -o '$(System.DefaultWorkingDirectory)' 
-      # - task: ArchiveFiles@2
-      #   inputs:
-      #     rootFolderOrFile: '$(Build.BinariesDirectory)'
-      #     includeRootFolder: true
-      #     archiveType: 'zip'
-      #     #archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-      #     archiveFile: '$(System.DefaultWorkingDirectory)/drop.zip'
-      #     replaceExistingArchive: true
+      - task: ArchiveFiles@2
+        inputs:
+          rootFolderOrFile: '$(Build.BinariesDirectory)'
+          includeRootFolder: true
+          archiveType: 'zip'
+          archiveFile: '$(Build.ArtifactStagingDirectory)/drop.zip'
+          #archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+          #archiveFile: '$(System.DefaultWorkingDirectory)/drop.zip'
+          replaceExistingArchive: true
       - task: PublishBuildArtifacts@1
         inputs:
           PathtoPublish: '$(Build.ArtifactStagingDirectory)'
